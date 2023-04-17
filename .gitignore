@@ -2,3 +2,5 @@
 /results
 /data/*
 !/data/b_lactam
+*.pdf
+/notebooks/*.csv

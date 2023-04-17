@@ -75,7 +75,7 @@ rule build_window_pangraph:
         "conda/wcs_tutorial.yml"
     shell:
         """
-        pangraph build -a 20 -b 5 -s 20 {input} > {output}
+        pangraph build -l 50 -a 10 -b 10 -s 5 {input} > {output}
         """
 
 
@@ -88,7 +88,10 @@ rule export_window_pangraph:
         "conda/wcs_tutorial.yml"
     shell:
         """
-        pangraph export -o {output} {input} 
+        pangraph export \
+            -nd \
+            --edge-minimum-length 0 \
+            -o {output} {input} 
         """
 
 
