@@ -1,0 +1,4 @@
+/.snakemake
+/results
+/data/*
+!/data/b_lactam

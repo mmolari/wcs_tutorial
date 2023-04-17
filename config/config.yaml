@@ -1,0 +1,4 @@
+strains: "config/strains.txt"
+strains-subset: "config/strains_subset.txt"
+bla_L:
+  bla15: 441
