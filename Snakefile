@@ -50,18 +50,17 @@ rule extract_window:
         paf=rules.map_bla.output,
         fa=rules.map_bla.input.fa,
     output:
-        "results/bla15/extracted_windows.fa",
+        "results/bla15/extracted_window_{w}.fa",
     conda:
         "config/conda_env.yml"
     params:
         L=int(config["bla-len"] * 0.95),
-        w=config["window-size"],
     shell:
         """
         python3 scripts/extract_matches.py \
             --in_fa {input.fa} \
             --paf {input.paf} \
-            --window {params.w} \
+            --window {wildcards.w} \
             --length {params.L} \
             --out {output}
         """
@@ -69,7 +68,7 @@ rule extract_window:
 
 rule build_window_pangraph:
     input:
-        rules.extract_window.output,
+        expand(rules.extract_window.output, w=config["window-size"]),
     output:
         "results/bla15/pangraph_window.json",
     conda:
@@ -98,7 +97,7 @@ rule export_window_pangraph:
 
 rule extract_alignment:
     input:
-        expand(rules.extract_window.output, w="0", allow_missing=True),
+        expand(rules.extract_window.output, w=0),
     output:
         "results/bla15/bla_alignment.fa",
     conda:

@@ -1,6 +1,7 @@
 /.snakemake
 /results
 /data/*
-!/data/b_lactam
+!/data/bla15.fa
+!/data/coretree.nwk
 *.pdf
 /notebooks/*.csv

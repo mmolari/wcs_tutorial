@@ -1,7 +1,7 @@
 strains: "config/strains.txt"
 window-size: 5000
 bla-len: 441
-bla-file: "data/b_lactam/bla15.fa"
+bla-file: "data/bla15.fa"
 strains-subset:
   - "NZ_CP049077"
   - "NZ_CP049085"
