@@ -11,7 +11,7 @@ tree = Phylo.read("../data/coretree.nwk", "newick")
 # %%
 
 # load paf file
-paf = pd.read_csv("../results/map/bla15.paf", sep="\t", header=None)
+paf = pd.read_csv("../results/bla15/map.paf", sep="\t", header=None)
 
 # %%
 # get all leave names

@@ -9,8 +9,7 @@ from collections import defaultdict
 from itertools import combinations, product
 
 # %%
-window = 5000
-pangraph_file = f"../results/pangraph/window__bla15__{window}.json"
+pangraph_file = f"../results/bla15/pangraph_window.json"
 pan = ppg.Pangraph.load_json(pangraph_file)
 
 # %%
@@ -86,7 +85,6 @@ plt.xlabel("Shared path length")
 plt.ylabel("Tree distance")
 plt.tight_layout()
 plt.savefig("figs/bla15_window_scatter.png", facecolor="white", dpi=300)
-plt.savefig("figs/bla15_window_scatter.pdf")
 plt.show()
 
 # load hex colors from csv
@@ -148,7 +146,7 @@ for sp in ["top", "right", "left"]:
     ax.spines[sp].set_visible(False)
 plt.tight_layout()
 plt.savefig("figs/bla15_window.png", facecolor="white", dpi=300)
-plt.savefig("figs/bla15_window.pdf")
+# plt.savefig("figs/bla15_window.pdf")
 plt.show()
 # %%
 cdf = pd.Series({k: mpl.colors.to_hex(v) for k, v in colors.items()}, name="Colour")

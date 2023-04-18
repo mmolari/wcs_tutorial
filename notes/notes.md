@@ -52,3 +52,8 @@ JULIA_NUM_THREADS=4
 pangraph build -a 20 -b 5 -s 20 bla_window.fa > pangraph_bla.json
 pangraph export -o bla_export pangraph_bla.json
 ```
+
+Select subset of strains
+```bash
+awk '{ if (!seen[$1]++) print $1 }' results/map/bla15.paf > config/strains_subset.txt
+```

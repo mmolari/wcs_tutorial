@@ -1,4 +1,18 @@
 strains: "config/strains.txt"
-strains-subset: "config/strains_subset.txt"
-bla_L:
-  bla15: 441
+window-size: 5000
+bla-len: 441
+bla-file: "data/b_lactam/bla15.fa"
+strains-subset:
+  - "NZ_CP049077"
+  - "NZ_CP049085"
+  - "NZ_CP103562"
+  - "NZ_CP103755"
+  - "NZ_JAOSBX010000001"
+  - "NZ_JAOSCK010000001"
+  - "NZ_JAOSEI010000001"
+  - "NZ_SEVB01000002"
+  - "NZ_SEVJ01000001"
+  - "NZ_SEVN01000002"
+marginalize:
+  - "NZ_JAOSEI010000001"
+  - "NZ_JAOSCK010000001"
