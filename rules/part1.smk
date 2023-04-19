@@ -82,7 +82,7 @@ rule bla_assign_color_to_isolate:
         tree=config["coregenome-tree"],
     output:
         color="results/bla15/isolate_color.csv",
-        fig="figs/bla15_core_tree.png",
+        fig="figs/bla_coretree.png",
     conda:
         "../config/conda_env.yml"
     shell:

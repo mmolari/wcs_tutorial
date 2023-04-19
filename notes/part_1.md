@@ -22,19 +22,19 @@ NZ_JAOSCG010000001    2
 
 ## step 2: core-genome distance between isolates
 
-As a preliminary step we evaluate the core-genome distance 
+In the `data/coretree.nwk` we provide a core-genome tree for the isolates. This was build using PanGraph, by constructing a graph from all of the isolates and extracting the alignments for all of the core block, taking care of filtering out highly-recombined regions.
 
-To
-
+We visualize which of the isolates on the tree contains the _bla_ gene on the chromosome with the following script (rule `bla_assign_color_to_isolate`):
 ```bash
 python3 scripts/assign_leaves_color.py \
-    --paf {input.paf} \
-    --tree {input.tree} \
-    --fig {output.fig} \
-    --color_csv {output.color}
+    --paf results/bla15/map.paf \
+    --tree data/coretree.nwk \
+    --fig figs/bla_coretree.png \
+    --color_csv results/bla15/isolate_color.csv
 ```
-![coretree](assets/bla15_core_tree.png){: style="width=100px;"}
+<img src="assets/bla_coretree.png" alt="core genome tree" width=400px>
 
+The script also assigns a color to each of these isolates, according to the order on which they appear on the tree. This is saved in `results/bla15/isolate_color.csv`.
 
 ## step 3: simple gene alignment
 
@@ -59,10 +59,11 @@ mafft --auto --adjustdirection \
 Inspection of this alignment reveals that these matches are all identical and no phylogenetic information can be extracted.
 ![alignment](assets/bla_alignment.png)
 
+We will therefore resort to looking at the genome organization around the resistance gene, using PanGraph.
+
 ## step 4: building a pangenome graph of the surrounding region
 
-
-We then use the script `script/extract_matches.py` to extract a ~10 kbp window (5kbp upstream and 5kbp downstream) around the match (rule `extract_window` with `w=5000`).
+We use the script `script/extract_matches.py` to extract a ~10 kbp window (5kbp upstream and 5kbp downstream) around the match (rule `extract_window` with `w=5000`).
 ```bash
 python3 scripts/extract_matches.py \
     --in_fa data/ST131_fa/* \
@@ -71,7 +72,6 @@ python3 scripts/extract_matches.py \
     --length 400 \
     --out results/bla15/extracted_window_5000.fa
 ```
-
 
 We then build a pangraph using the sequences of the regions surrounding the bla gene (rule `build_window_pangraph`):
 ```bash
