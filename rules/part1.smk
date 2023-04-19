@@ -95,8 +95,25 @@ rule bla_assign_color_to_isolate:
         """
 
 
+rule find_bla_block:
+    input:
+        exp=rules.export_window_pangraph.output,
+        fa=config["bla-file"],
+    output:
+        "results/bla15/bla_block.txt",
+    conda:
+        "../config/conda_env.yml"
+    shell:
+        """
+        minimap2 {input.fa} {input.exp}/pangraph.fa \
+            | awk '{{print $1}}' \
+            > {output}
+        """
+
+
 rule part1_all:
     input:
         rules.export_window_pangraph.output,
         rules.extract_alignment.output,
         rules.bla_assign_color_to_isolate.output,
+        rules.find_bla_block.output,

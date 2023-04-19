@@ -1,4 +1,4 @@
-# pangraph tutorial
+# PanGraph - a simple hands-on tutorial
 
 This repository contains code for a tutorial of [PanGraph](https://github.com/neherlab/pangraph), in which pangenome graphs are used to study properties of a dataset of _E.coli_ ST131 isolates downloaded from RefSeq.
 
@@ -26,8 +26,8 @@ These are downladed by the `download_gbk` rule of the snakemake workflow, and pl
 
 The analysis is divided in three parts:
 
-1. examining the structural diversity around bla CTX-M-15 genes.
-2. building a pangenome graph for a part of the dataset and looking at difference in private sequence compared to core genome divergence.
-3. marginalizing the graph on a pair of isolates and visualizing the pairwise projection.
+- [part 1](notes/part_1.md): examining the structural diversity around bla CTX-M-15 genes.
+- [part 2](notes/part_2.md): building a pangenome graph for a part of the dataset and looking at difference in private sequence compared to core genome divergence.
+- [part 3](notes/part_3.md): marginalizing the graph on a pair of isolates and visualizing the pairwise projection.
 
 Each part has a corresponding set of notes in the `notes` folder.

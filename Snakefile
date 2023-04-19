@@ -94,8 +94,7 @@ rule export_marginal_graph:
 
 rule all:
     input:
-        rules.export_window_pangraph.output,
-        rules.extract_alignment.output,
+        rules.part1_all.output,
         rules.export_subset_pangraph.output,
         rules.marginalize.output,
         rules.export_marginal_graph.output,

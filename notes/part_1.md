@@ -4,7 +4,7 @@ The aim of this part of the analysis is using pangraph to compare the structural
 
 The file `data/bla15.fa` contains the nucleotide sequence of a beta-lactamase CTX-M-15 gene ([UniProt](https://www.uniprot.org/uniprotkb/G8FPM5) | [GenBank](https://www.ncbi.nlm.nih.gov/nuccore/JN019833)).
 
-## step 1: extracting the regions surrounding bla gene
+## step 1: finding occurrences of the _bla_ gene
 
 We use minimap2 to find matches for the bla gene on the chromosomes (rule `map_bla` in the workflow):
 ```bash
@@ -63,7 +63,7 @@ Inspection of this alignment reveals that these matches are all identical and no
 
 We will therefore resort to looking at the genome organization around the resistance gene, using PanGraph.
 
-## step 4: building a pangenome graph of the surrounding region
+## step 4: building a pangenome graph of the region surrounding _bla_
 
 We use the script `script/extract_matches.py` to extract a ~10 kbp window (5kbp upstream and 5kbp downstream) around the match (rule `extract_window` with `w=5000`).
 ```bash
@@ -83,5 +83,39 @@ pangraph build \
     > results/bla15/pangraph_window.json 
 ```
 
-The aim is to use the structural diversity around this region to visualize relatedness between different genes.
+This graph can be exported using the `export` command of pangraph (rule `export_window_pangraph`):
+```bash
+pangraph export \
+    -nd \
+    --edge-minimum-length 0 \
+    -o results/bla15/export \
+    results/bla15/pangraph_window.json 
+```
 
+We use the `-nd` flag to avoid exporting duplicates, to limit the complexity of the graph visualization.
+This generates two files in the `export` folder: `pangraph.gfa` and `pangraph.fa`.
+The former can be visualized with software such as [Bandage](https://rrwick.github.io/Bandage/). Here is a visualization in which we used the `blast` option to highligh the region containing the _bla_ gene.
+![blast graph](assets/graph_blast.png)
+
+The `pangraph.fa` file contains instead the consensus sequence of each block in the graph. We can use it to find the name of the block containing the _bla_ gene (rule `find_bla_block`):
+```bash
+minimap2 data/bla15.fa results/bla15/export/pangraph.fa \
+    | awk '{print $1}' \
+    > results/bla15/bla_block.txt
+```
+
+## step 5: structural diversity of _bla_ gene neighbourhood
+
+We wrote a simple script to:
+- evaluate the pairwise diversity
+- order gene occurrences by similarity
+
+The script uses [pypangraph](https://github.com/mmolari/pypangraph), a package to interact with pangraph's pangenome graphs using python.
+
+We can visualize the results in two ways. The firs one is through a scripts that creates a linear visualization of the _bla_ regions, and assigns a color to any non-singleton block.
+
+This script also produces a `csv` file that can be loaded in bandage to apply the corresponding colors to the graph visualization:
+
+![colored graph](assets/graph.png)
+
+## step 6: comparing diversities
