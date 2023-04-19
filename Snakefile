@@ -41,7 +41,7 @@ rule map_bla:
         "config/conda_env.yml"
     shell:
         """
-        minimap2 {input.bla} {input.fa} -x asm5 > {output}
+        minimap2 -x asm5 {input.bla} {input.fa} > {output}
         """
 
 
