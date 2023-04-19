@@ -32,7 +32,9 @@ python3 scripts/assign_leaves_color.py \
     --fig figs/bla_coretree.png \
     --color_csv results/bla15/isolate_color.csv
 ```
-<img src="assets/bla_coretree.png" alt="core genome tree" width=400px>
+<p align="center">
+    <img src="assets/bla_coretree.png" alt="core genome tree" width=400px>
+</p>
 
 The script also assigns a color to each of these isolates, according to the order on which they appear on the tree. This is saved in `results/bla15/isolate_color.csv`.
 
