@@ -20,17 +20,23 @@ NZ_JAOSEC010000001    2
 NZ_JAOSCG010000001    2
 ```
 
-We then use the script `script/extract_matches.py` to extract a ~10 kbp window (5kbp upstream and 5kbp downstream) around the match (rule `extract_window` with `w=5000`).
-```bash
-python3 scripts/extract_matches.py \
-    --in_fa data/ST131_fa/* \
-    --paf results/bla15/map.paf \
-    --window 5000 \
-    --length 400 \
-    --out results/bla15/extracted_window_5000.fa
-```
+## step 2: core-genome distance between isolates
 
-## step 2: simple gene alignment
+As a preliminary step we evaluate the core-genome distance 
+
+To
+
+```bash
+python3 scripts/assign_leaves_color.py \
+    --paf {input.paf} \
+    --tree {input.tree} \
+    --fig {output.fig} \
+    --color_csv {output.color}
+```
+![coretree](assets/bla15_core_tree.png){: style="width=100px;"}
+
+
+## step 3: simple gene alignment
 
 As a first preliminary step in the analysis we can generate an alignment from the mapping to check the quality of the detected matches, and see if we can extract phylogenetic information from the alignment.
 
@@ -51,9 +57,21 @@ mafft --auto --adjustdirection \
 ```
 
 Inspection of this alignment reveals that these matches are all identical and no phylogenetic information can be extracted.
-![alignment](../notebooks/figs/bla_alignment.png)
+![alignment](assets/bla_alignment.png)
 
-## step 3: building a pangenome graph of the surrounding region
+## step 4: building a pangenome graph of the surrounding region
+
+
+We then use the script `script/extract_matches.py` to extract a ~10 kbp window (5kbp upstream and 5kbp downstream) around the match (rule `extract_window` with `w=5000`).
+```bash
+python3 scripts/extract_matches.py \
+    --in_fa data/ST131_fa/* \
+    --paf results/bla15/map.paf \
+    --window 5000 \
+    --length 400 \
+    --out results/bla15/extracted_window_5000.fa
+```
+
 
 We then build a pangraph using the sequences of the regions surrounding the bla gene (rule `build_window_pangraph`):
 ```bash
@@ -63,4 +81,5 @@ pangraph build \
     > results/bla15/pangraph_window.json 
 ```
 
-The aim is to use the structural diversity 
+The aim is to use the structural diversity around this region to visualize relatedness between different genes.
+

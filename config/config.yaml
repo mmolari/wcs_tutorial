@@ -1,4 +1,5 @@
 strains: "config/strains.txt"
+coregenome-tree: "data/coretree.nwk"
 window-size: 5000
 bla-len: 441
 bla-file: "data/bla15.fa"

@@ -37,7 +37,7 @@ plt.figure(figsize=(6, 12))
 ax = plt.gca()
 Phylo.draw(
     tree,
-    label_func=lambda x: x.name if x.name in leaves else "",
+    label_func=lambda x: x.name if x.name in selected else "",
     do_show=False,
     axes=ax,
     label_colors={n.name: colors[n.name] for n in tree.get_terminals()},
