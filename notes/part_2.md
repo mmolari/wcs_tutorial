@@ -72,12 +72,13 @@ python3 scripts/plot_private_seq.py
     --fig_scatter figs/private_seq_scatter.png
     --fig_matrix figs/private_seq_matrix.png
 ```
-
-![private sequence scatter](assets/private_seq_scatter.png)
+<p align="center">
+    <img src="assets/private_seq_scatter.png" alt="private sequence scatter" width=400px>
+</p>
 
 The amount of private sequence shows weak negative correlation with the core genome distance. Isolates with a very low density of SNPs on their core genome can have a very high amount of private sequence, up to several hundreds of genes. This can be even better visualized by comparing the core-genome tree with the private sequence distance matrix.
 
-![private sequence scatter](assets/private_seq_matrix.png)
+![private sequence matrix](assets/private_seq_matrix.png)
 
 In the next part of the tutorial we will give a closer look at the following pair of isolates: `NZ_JAOSEI010000001` and `NZ_JAOSCK010000001`. In spite of being very close on the core genome tree, their genome differ by ~ 200kbp.
 
