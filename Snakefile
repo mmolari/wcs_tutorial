@@ -32,33 +32,7 @@ rule gbk_to_fa:
 
 
 include: "rules/part1.smk"
-
-
-rule build_subset_pangraph:
-    input:
-        fa=expand(rules.gbk_to_fa.output, acc=strains_subset),
-    output:
-        "results/pangraph/subset.json",
-    conda:
-        "config/conda_env.yml"
-    shell:
-        """
-        JULIA_NUM_THREADS=3
-        pangraph build --circular -a 20 -b 5 -s 20 {input.fa} > {output}
-        """
-
-
-rule export_subset_pangraph:
-    input:
-        rules.build_subset_pangraph.output,
-    output:
-        directory("results/pangraph/export/subset"),
-    conda:
-        "config/conda_env.yml"
-    shell:
-        """
-        pangraph export -nd -o {output} {input} 
-        """
+include: "rules/part2.smk"
 
 
 rule marginalize:
@@ -95,6 +69,5 @@ rule export_marginal_graph:
 rule all:
     input:
         rules.part1_all.output,
-        rules.export_subset_pangraph.output,
-        rules.marginalize.output,
-        rules.export_marginal_graph.output,
+        rules.part2_all.output,
+        # rules.export_marginal_graph.output,
