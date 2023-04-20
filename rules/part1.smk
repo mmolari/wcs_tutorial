@@ -136,9 +136,28 @@ rule bla_structural_diversity:
         """
 
 
+rule bla_structure_vs_coretree:
+    input:
+        shared_L=rules.bla_structural_diversity.output.shared_L,
+        tree=config["coregenome-tree"],
+        leaves_col=rules.bla_assign_color_to_isolate.output.color,
+    output:
+        fig_scatter="figs/bla_shared_len_vs_coretree_scatter.png",
+        fig_tree="figs/bla_shared_len_vs_coretree.png",
+    conda:
+        "../config/conda_env.yml"
+    shell:
+        """
+        python3 scripts/shared_paths_vs_coretree.py \
+            --shared_len_df {input.shared_L} \
+            --tree {input.tree} \
+            --leaves_colors {input.leaves_col} \
+            --fig_scatter {output.fig_scatter} \
+            --fig_tree {output.fig_tree}
+        """
+
+
 rule part1_all:
     input:
-        rules.export_window_pangraph.output,
         rules.extract_alignment.output,
-        rules.bla_assign_color_to_isolate.output,
-        rules.bla_structural_diversity.output,
+        rules.bla_structure_vs_coretree.output,
