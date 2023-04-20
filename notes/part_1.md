@@ -95,7 +95,10 @@ pangraph export \
 We use the `-nd` flag to avoid exporting duplicates, to limit the complexity of the graph visualization.
 This generates two files in the `export` folder: `pangraph.gfa` and `pangraph.fa`.
 The former can be visualized with software such as [Bandage](https://rrwick.github.io/Bandage/). Here is a visualization in which we used the `blast` option to highligh the region containing the _bla_ gene.
-![blast graph](assets/graph_blast.png)
+
+<p align="center">
+    <img src="assets/graph_blast.png" alt="blast graph" width=600px>
+</p>
 
 The `pangraph.fa` file contains instead the consensus sequence of each block in the graph. We can use it to find the name of the block containing the _bla_ gene (rule `find_bla_block`):
 ```bash
@@ -116,6 +119,8 @@ We can visualize the results in two ways. The firs one is through a scripts that
 
 This script also produces a `csv` file that can be loaded in bandage to apply the corresponding colors to the graph visualization:
 
-![colored graph](assets/graph.png)
+<p align="center">
+    <img src="assets/graph.png" alt="colored graph" width=600px>
+</p>
 
 ## step 6: comparing diversities

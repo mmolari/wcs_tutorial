@@ -57,3 +57,13 @@ Select subset of strains
 ```bash
 awk '{ if (!seen[$1]++) print $1 }' results/map/bla15.paf > config/strains_subset.txt
 ```
+
+## dependencies
+
+- pypangraph
+- numpy scipy matplotlib pandas
+- ncbi-acc-download
+- mafft
+- pyyaml
+- biopython
+- minimap2
