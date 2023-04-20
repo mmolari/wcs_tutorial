@@ -29,8 +29,9 @@ def tree_leaves_distances(tree):
 
 
 def scatterplot(df, fig_savename):
+    """Draw a scatter-plot of shared path length vs tree distance"""
     fig, ax = plt.subplots(figsize=(4, 3))
-    ax.scatter(df["shared_L"] / 1000, df["tree_dist"], alpha=0.3)
+    ax.scatter(df["shared_L"] / 1000, df["tree_dist"], alpha=0.2)
     ax.set_xlabel("shared path length (kbp)")
     ax.set_ylabel("tree distance")
     ax.spines["right"].set_visible(False)
@@ -40,7 +41,8 @@ def scatterplot(df, fig_savename):
     plt.close(fig)
 
 
-def elliptic_connect(y1, y2, color, ax):
+def __draw_ellipse(y1, y2, color, ax):
+    """utility function to draw a half-ellipse between two points"""
     theta = np.linspace(0, np.pi, 30)
     dy = np.abs(y2 - y1) / 2
     y0 = np.mean([y1, y2])
@@ -51,8 +53,10 @@ def elliptic_connect(y1, y2, color, ax):
 
 
 def tree_plot(tree, df, fig_savename):
+    """Draw a plot to compare the distance on core-genome tree to the length of
+    shared paths"""
 
-    # set of selected leaves
+    # set of bla-containing isolates
     leaves_idx = {l.name: n + 1 for n, l in enumerate(tree.get_terminals())}
     selected_leaves = list(leaves_colors.keys())
 
@@ -60,6 +64,7 @@ def tree_plot(tree, df, fig_savename):
         1, 2, figsize=(6, 10), sharey=True, gridspec_kw={"width_ratios": [2, 1]}
     )
 
+    # draw tree, displaying the label of sleected isolates
     ax = axs[0]
     Phylo.draw(
         tree,
@@ -72,11 +77,13 @@ def tree_plot(tree, df, fig_savename):
     ax.spines["top"].set_visible(False)
     ax.grid(True, axis="y", alpha=0.5)
 
+    # draw links between isolates, color representing the shared path length
     ax = axs[1]
+
     cmap = plt.get_cmap("Blues")
-    norm = plt.Normalize(
-        vmin=df["shared_L"].min() / 1000, vmax=df["shared_L"].max() / 1000
-    )
+    Lmin, Lmax = df["shared_L"].min() / 1000, df["shared_L"].max() / 1000
+    norm = plt.Normalize(vmin=Lmin, vmax=Lmax)
+    
     for _, x in df.sort_values("shared_L").iterrows():
         l1 = x["p1"].split("-")[0]
         l2 = x["p2"].split("-")[0]
@@ -84,12 +91,13 @@ def tree_plot(tree, df, fig_savename):
         i1 = leaves_idx[l1]
         i2 = leaves_idx[l2]
         color = cmap(norm(L))
-        elliptic_connect(i1, i2, color, ax)
+        __draw_ellipse(i1, i2, color, ax)
 
     ax.set_xticks([])
     for sp in ax.spines:
         ax.spines[sp].set_visible(False)
 
+    # add colorbar
     mapp = mpl.cm.ScalarMappable(norm=norm, cmap=cmap)
     plt.colorbar(mapp, ax=ax, label="shared path length (kbp)", shrink=0.5, pad=0.05)
 
@@ -120,6 +128,6 @@ if __name__ == "__main__":
         lambda x: tree_d[(x["p1"].split("-")[0], x["p2"].split("-")[0])], axis=1
     )
 
-    # plot
+    # perform plots
     scatterplot(df_l, args.fig_scatter)
     tree_plot(tree, df_l, args.fig_tree)

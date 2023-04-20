@@ -118,9 +118,9 @@ rule bla_structural_diversity:
         leaves_col=rules.bla_assign_color_to_isolate.output.color,
     output:
         shared_L="results/bla15/shared_bla_length.csv",
+        colors="results/bla15/block_colors.csv",
         fig_paths="figs/bla_paths_drawing.png",
         fig_matrix="figs/bla_paths_shared_len.png",
-        colors="results/bla15/block_colors.csv",
     conda:
         "../config/conda_env.yml"
     shell:

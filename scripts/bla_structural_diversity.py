@@ -96,16 +96,18 @@ def plot_paths(pan, paths_order, leaves_colors, core_anchor, fig_savename):
     assigning colors to blocks occurring multiple times."""
 
     # dictionary of block lengths
-    df = pan.to_blockstats_df().sort_values("n. strains", ascending=False)
+    df = pan.to_blockstats_df().sort_values("count", ascending=False)
     Ls = df["len"].to_dict()
 
     # generate colors for blocks
     def __color_generator():
         cm = mpl.colormaps.get_cmap("tab20")
-        c_idx = 0
+        colors = [cm(i) for i in range(20)]
+        colors.pop(15)  # remove light gray
+        i = 0
         while True:
-            yield cm(c_idx)
-            c_idx += 1
+            yield colors[i]
+            i += 1
 
     cg = __color_generator()
     block_colors = {
