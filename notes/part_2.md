@@ -1,4 +1,4 @@
-# using pangraph to estimate private sequence
+# using pangraph to estimate differences in private sequence
 
 In the previous tutorial we identified a clade with high structural similarity in the region surrounding the beta-lactamase gene.
 
