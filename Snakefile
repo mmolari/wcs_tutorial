@@ -38,6 +38,6 @@ include: "rules/part3.smk"
 
 rule all:
     input:
-        rules.part1_all.output,
-        rules.part2_all.output,
-        rules.part3_all.output,
+        rules.part1_all.input,
+        rules.part2_all.input,
+        rules.part3_all.input,

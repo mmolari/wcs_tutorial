@@ -41,20 +41,20 @@ rule plot_block_distr:
         """
 
 
-# rule bandage_subset:
-#     input:
-#         rules.export_subset_pangraph.output,
-#     output:
-#         "figs/bandage_subset.png",
-#     shell:
-#         """
-#         bandage image {input}/pangraph.gfa {output} \
-#             --nodewidth 5 \
-#             --iter 4 \
-#             --colour depth \
-#             --depvallow 1 \
-#             --depvalhi 10
-#         """
+rule plot_bandage_subset:
+    input:
+        rules.export_subset_pangraph.output,
+    output:
+        "figs/bandage_subset.png",
+    shell:
+        """
+        bandage image {input}/pangraph.gfa {output} \
+            --nodewidth 5 \
+            --iter 4 \
+            --colour depth \
+            --depvallow 1 \
+            --depvalhi 10
+        """
 
 
 rule private_seq_distance:

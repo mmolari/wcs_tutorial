@@ -30,4 +30,4 @@ The analysis is divided in three parts:
 - [part 2](notes/part_2.md): building a pangenome graph for a part of the dataset and looking at difference in private sequence compared to core genome divergence.
 - [part 3](notes/part_3.md): marginalizing the graph on a pair of isolates and visualizing the pairwise projection.
 
-Each part has a corresponding set of notes in the `notes` folder.
+Each part has a corresponding note in the `notes` folder.
