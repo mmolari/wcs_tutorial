@@ -3,6 +3,4 @@
 /data/*
 !/data/bla15.fa
 !/data/coretree.nwk
-/notebooks/*.csv
 /figs
-*.pdf
