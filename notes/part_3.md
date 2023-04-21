@@ -22,7 +22,6 @@ pangraph marginalize \
 
 We can export the graph to `gfa` and visualize it with [Bandage](https://rrwick.github.io/Bandage/):
 ```bash
-```bash
 pangraph export -nd -ell 0 \
     -o results/pangraph/export_marginalized \
     results/pangraph/marginalized.json
